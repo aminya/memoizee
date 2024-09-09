@@ -27,8 +27,8 @@ var now = Date.now,
 	data = {},
 	lruObj;
 
-async function getFib(memoize, opts) {
-	const fib = await memoize(function (x) {
+function getFib(memoize, opts) {
+	const fib = memoize(function (x) {
 		return x < 2 ? 1 : fib(x - 1) + fib(x - 2);
 	}, opts);
 	return fib;
@@ -47,7 +47,7 @@ console.log("Fibonacci", index, "x" + count + ":\n");
 
 total = 0;
 i = count;
-memo = await getFib(memoizee);
+memo = getFib(memoizee);
 while (i--) {
 	time = now();
 	memo(index);
@@ -57,7 +57,7 @@ data["Memoizee (object mode)"] = total;
 
 total = 0;
 i = count;
-memo = await getFib(memoizee, { primitive: true });
+memo = getFib(memoizee, { primitive: true });
 while (i--) {
 	time = now();
 	memo(index);
@@ -67,7 +67,7 @@ data["Memoizee (primitive mode)"] = total;
 
 total = 0;
 i = count;
-memo = await getFib(underscore);
+memo = getFib(underscore);
 while (i--) {
 	time = now();
 	memo(index);
@@ -77,7 +77,7 @@ data.Underscore = total;
 
 total = 0;
 i = count;
-memo = await getFib(lodash);
+memo = getFib(lodash);
 while (i--) {
 	time = now();
 	memo(index);
@@ -87,7 +87,7 @@ data["Lo-dash"] = total;
 
 total = 0;
 i = count;
-memo = await getFib(memoizee, { primitive: true, max: lruMax });
+memo = getFib(memoizee, { primitive: true, max: lruMax });
 while (i--) {
 	time = now();
 	memo(index);
@@ -97,7 +97,7 @@ data["Memoizee (primitive mode) LRU (max: 1000)"] = total;
 
 total = 0;
 i = count;
-memo = await getFib(memoizee, { max: lruMax });
+memo = getFib(memoizee, { max: lruMax });
 while (i--) {
 	time = now();
 	memo(index);

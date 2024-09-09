@@ -119,7 +119,7 @@
 		]
 	},
 	"scripts": {
-		"build": "babel --out-file-extension .js -d ./ ./*.mjs --ignore ./index.mjs && babel --out-file-extension .js -d ./lib ./lib/*.mjs && babel --out-file-extension .js -d ./ext ./ext/*.mjs && babel --out-file-extension .js -d ./normalizers ./normalizers/*.mjs",
+		"build": "babel --out-file-extension .js -d ./ ./*.mjs && babel --out-file-extension .js -d ./lib ./lib/*.mjs && babel --out-file-extension .js -d ./ext ./ext/*.mjs && babel --out-file-extension .js -d ./normalizers ./normalizers/*.mjs",
 		"coverage": "nyc npm test",
 		"lint": "eslint --ignore-path=.gitignore .",
 		"lint:updated": "pipe-git-updated --base=main --ext=js -- eslint --ignore-pattern '!*'",

@@ -1,26 +1,28 @@
 import normalizeOpts from "es5-ext/object/normalize-options.js";
 import resolveLength from "./lib/resolve-length.mjs";
 import { default as plain, registeredExtensions } from "./plain.mjs";
+import primitive from "./normalizers/primitive.mjs";
+import get from "./normalizers/get.mjs";
+import get1 from "./normalizers/get-1.mjs";
+import getFixed from "./normalizers/get-fixed.mjs";
+import getPrimitiveFixed from "./normalizers/get-primitive-fixed.mjs";
 
-export default async function memoize(fn/*, options*/) {
-	var options = normalizeOpts(arguments[1]), length;
+export default function memoize(fn /*, options*/) {
+	var options = normalizeOpts(arguments[1]),
+		length;
 
 	if (!options.normalizer) {
 		length = options.length = resolveLength(options.length, fn.length, options.async);
 		if (length !== 0) {
 			if (options.primitive) {
 				if (length === false) {
-					options.normalizer = (await import("./normalizers/primitive.mjs")).default;
+					options.normalizer = primitive;
 				} else if (length > 1) {
-					options.normalizer = (
-						await import("./normalizers/get-primitive-fixed.mjs")
-					).default(length);
+					options.normalizer = getPrimitiveFixed(length);
 				}
-			} else if (length === false)
-				options.normalizer = (await import("./normalizers/get.mjs")).default();
-			else if (length === 1)
-				options.normalizer = (await import("./normalizers/get-1.mjs")).default();
-			else options.normalizer = (await import("./normalizers/get-fixed.mjs")).default(length);
+			} else if (length === false) options.normalizer = get();
+			else if (length === 1) options.normalizer = get1();
+			else options.normalizer = getFixed(length);
 		}
 	}
 

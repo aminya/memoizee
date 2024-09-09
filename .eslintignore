@@ -1,9 +1,5 @@
-/plain.js
-/profile.js
-/weak-plain.js
-/weak.js
-/methods-plain.js
-/methods.js
+/*.js
+!/commitlint.config.js
 /lib/*.js
 /ext/*.js
 /normalizers/*.js
